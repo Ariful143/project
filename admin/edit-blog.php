@@ -1,15 +1,20 @@
 <?php
-    require_once '../vendor/autoload.php';
-    $blog= new App\classes\Blog;
+require_once '../vendor/autoload.php';
+$blog = new App\classes\Blog;
 
-    $message='';
-    if(isset($_POST['btn'])){
-        $message=$blog->saveBlogInfo($_POST);
 
-    }
 
-    ?>
+$id=$_GET['id'];
+$queryResult=$blog->getBlogInfoById($id);
+$information = mysqli_fetch_assoc($queryResult);
 
+$message='';
+if(isset($_POST['btn'])){
+    $message=$blog->updateBlogInfo($_POST, $id);
+
+}
+
+?>
 
 <h1><?php echo $message; ?></h1>
 <?php include 'includes/header.php'; ?>
@@ -30,14 +35,14 @@
                                     </select>
                                 </div>
 
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="inputPassword3" class="col-sm-3 col-form-label">Blog Title</label>
-                            <div class="col-sm-9">
-                                <input type="text"  name="blog_title" class="form-control" id="inputEmail3" >
                             </div>
-                        </div>
+
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-3 col-form-label">Blog Title</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="blog_title" class="form-control" id="inputEmail3" >
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label for="inputPassword3" class="col-sm-3 col-form-label">Short Description</label>
@@ -53,29 +58,29 @@
                                 </div>
                             </div>
 
-                                <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Blog Image</label>
-                                    <div class="col-sm-9">
-                                        <input type="file"/>
-                                    </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-3 col-form-label">Blog Image</label>
+                                <div class="col-sm-9">
+                                    <input type="file"/>
                                 </div>
-
-                        <div class="form-group row">
-                            <label for="publication_status" class="col-sm-3 col-form-label">Publication</label>
-                            <div class="col-sm-9">
-                                <input type="radio" name="status" value="1"/>Published
-                                <input type="radio" name="status" value="0"/>Unpublished
                             </div>
-                        </div>
 
-
-                        <div class="form-group row">
-
-                            <div class=" offset-7 col-sm-5">
-                                <button type="submit" name="btn" class="btn btn-primary btn-block">Save Category Info</button>
+                            <div class="form-group row">
+                                <label for="publication_status" class="col-sm-3 col-form-label">Publication</label>
+                                <div class="col-sm-9">
+                                    <input type="radio" name="status" value="1"/>Published
+                                    <input type="radio" name="status" value="0"/>Unpublished
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+
+                            <div class="form-group row">
+
+                                <div class=" offset-7 col-sm-5">
+                                    <button type="submit" name="btn" class="btn btn-primary btn-block">Save Category Info</button>
+                                </div>
+                            </div>
+                        </form>
                 </div>
             </div>
         </div>

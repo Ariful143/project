@@ -1,3 +1,21 @@
+<?php
+    require_once '../vendor/autoload.php';
+    $view= new App\classes\Blog;
+
+$message=' ';
+if(isset($_GET['delete'])){
+    $id=$_GET['id'];
+    $message=$view->deleteBlogInfo($id);
+}
+
+
+    $queryResult=$view->getBlogInfo();
+
+
+
+
+?>
+
 <?php include 'includes/header.php'; ?>
 
     <div class="container">
@@ -16,39 +34,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <?php  while( $blog= mysqli_fetch_assoc($queryResult)){ ?>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <th scope="row"><?php echo $blog['id']?></th>
+                                <td><?php echo $blog['category_name']?></td>
+                                <td><?php echo $blog['blog_title']?></td>
+                                <td><?php echo $blog['publication_status']?></td>
                                 <td>
-                                    <a href="">View</a>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
+                                    <a href="manage-blog.php">View</a>
+                                    <a href="edit-blog.php?id=<?php echo $blog['id']?>"">Edit</a>
+                                    <a href="?delete=true&id=<?php echo $blog['id']?>">Delete</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>
-                                    <a href="">View</a>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>
-                                    <a href="">View</a>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
-                                </td>
-                            </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>

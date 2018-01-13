@@ -20,13 +20,14 @@ if(isset($_SESSION['id'])) {
         <title>Admin Login</title>
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css"  />
     </head>
+    <h4 class="text-danger"><?php echo $message; ?></h4><br/>
     <body>
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 mx-auto">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="text-danger"><?php echo $message; ?></h4><br/>
+
                             <form action="" method="POST">
                                 <div class="form-group row" >
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>

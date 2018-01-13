@@ -1,3 +1,21 @@
+<?php
+    require_once '../vendor/autoload.php';
+    $view= new App\classes\Category;
+
+    $message=' ';
+    if(isset($_GET['delete'])){
+        $id=$_GET['id'];
+        $message=$view->deleteCategoryInfo($id);
+    }
+
+    $queryResult=$view->getCategoryInfo();
+
+
+
+
+?>
+
+
 <?php include 'includes/header.php'; ?>
 
     <div class="container">
@@ -16,36 +34,18 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <?php  while( $category = mysqli_fetch_assoc($queryResult)){ ?>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <th scope="row"><?php echo $category['id']?></th>
+                                <td><?php echo $category['category_name']?></td>
+                                <td><?php echo $category['category_description']?></td>
+                                <td><?php echo $category['status']?></td>
                                 <td>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
+                                    <a href="edit-category.php?id=<?php echo $category['id']?>">Edit</a>
+                                    <a href="?delete=true&id=<?php echo $category['id']?>">Delete</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
-                                </td>
-                            </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
